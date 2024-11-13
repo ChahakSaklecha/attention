@@ -1,18 +1,21 @@
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from neo4j import GraphDatabase
-from transformers import pipeline
+from pydantic import BaseModel, confloat
+
+class Output(BaseModel):
+  answer : str
+  score : confloat(ge=0.0, le=1.0)
 
 class ResearchQASystem:
-    def __init__(self, uri="neo4j+s://1148f8c6.databases.neo4j.io", user="neo4j", password="_KlmMeyAATXPPTOgSu2jcjQPxaso12x0_5MiK3S4I4U"):
+    def __init__(self, generator, uri="neo4j+s://1148f8c6.databases.neo4j.io", user="neo4j", password="_KlmMeyAATXPPTOgSu2jcjQPxaso12x0_5MiK3S4I4U"):
         """Initialize the Research QA System with necessary models and database connection"""
         # Neo4j connection
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
 
-        # QA Model for answering questions
-        self.generator = pipeline("text-generation", model="mistralai/Mistral-Small-Instruct-2409", device=0)
+        # generator for answering questions
+        self.generator = generator
 
-    def get_relevant_papers(self, question, top_k=5):
+    def get_relevant_papers(self, top_k=5):
         """
         Retrieve the most relevant papers based on semantic similarity with the question
 
@@ -48,7 +51,7 @@ class ResearchQASystem:
         dict: Contains the answer, source papers, and confidence score
         """
         # Get relevant papers
-        relevant_papers = self.get_relevant_papers(question)
+        relevant_papers = self.get_relevant_papers()
 
         if not relevant_papers:
             return {
@@ -73,11 +76,11 @@ class ResearchQASystem:
             """
 
             # Get answer from generator model
-            qa_result = self.generator(prompt, max_length=150)
+            qa_result = self.generator(prompt)
 
             answers.append({
-                "answer": qa_result[0]['generated_text'],
-                "confidence": 1.0,  # Confidence here is simplified, you may enhance it
+                "answer": qa_result.answer,
+                "confidence": qa_result.score, 
                 "source": paper['p.title']
             })
 
