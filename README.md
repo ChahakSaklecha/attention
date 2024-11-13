@@ -2,9 +2,14 @@
 # Attention.Ai - Academic Research Paper Assistant 🎓
 This project is a fast, intuitive tool for researchers and students to search for academic papers, get quick summaries, and receive targeted answers to their questions!
 
+Since the model requires approximately 9GB RAM, I highly suggest to use google colab notebook with T4 GPU Support, so that model can download, load and run without much complications.
+The model may fail to load or run if proper support is not present in the local system.
 
 
-
+```bash
+    https://colab.research.google.com/drive/1BSeaZgDi3GkYNVD0t4_vLPF8fgN0vZEj?usp=sharing
+```
+To run streamlit on colab, steps are given below in Streamlit app section.
 ## Installation⬇️
 Neo4js for graph database
 ```bash
@@ -18,10 +23,17 @@ Transformers
 
 HuggingFace🤗
 
-Login into your huggingface profile and generate token.
+Login into your huggingface profile
+
+You may need to accept the t&c to use Ministral 8B Instruct Model.
+After that generate token from your profile.
+
 ```bash
   !huggingface-cli login
 ```
+The model will first download itself which will take some time :) 
+After that whenever model is called, it will just load its Technical "Shards Checkpoint".
+
 Outlines
 ```bash
   !pip install outlines
@@ -44,7 +56,7 @@ The project utilizes the ArXiv API to retrieve data from millions of research pa
 In this setup, a quantized Ministral model generates responses based on user-selected papers,i.e User is asked the topic, After which all relevant papers are displayed by using a drop down key. The user can select a specific title to get the detailed summary along with the Github Repo link also (if available) and the actual paper link can also be accessed by clicking on 'Read More' which are processed by calling our LLM model.
 ## QnA
 When a general question is requested, the system creates a prompt based on content, title along with the question by user for each paper, and the model generates an answer for this prompt. The answer is stored in a vector along with confidence scores.The user is presented with the answer based on highest-confidence score along with its source, plus an alternative option for comparison. This approach ensures users receive the most relevant information with confidence-based accuracy.
-## Streamlit app
+# Streamlit app
 To run Streamlit app on colab, 
 ensure these dependencies are installed or install them using
 
@@ -58,19 +70,18 @@ use this command to Authenticate in your cell
 ```bash
   !ngrok authtoken <YOUR TOKEN>
 ```
-start the streamlit_app
+
+run the streamlit_app cell
 
 once loaded, you can visit the ngrok host link to use the app.
 
-
-## Colab Notebook
-Since the model requires approximately 9GB RAM, therefore it is better to use google Colab
-
-The model will take a few minutes to load :)
-
+To use on local system
+run
 ```bash
-    https://colab.research.google.com/drive/1BSeaZgDi3GkYNVD0t4_vLPF8fgN0vZEj?usp=sharing
+  streamlit run app.py
 ```
+
+
 ## Demo Link
 ```bash
     https://drive.google.com/file/d/1JNILUmzOxwUTjozszy9jVrQTADhTFx7N/view?usp=drive_link
