@@ -1,0 +1,26 @@
+Name: streamlit
+Version: 1.40.1
+
+Name: torch
+Version: 2.5.1
+
+Name: requests
+Version: 2.32.3
+
+Name: outlines
+Version: 0.1.3
+
+Name: neo4j
+Version: 5.26.0
+
+Name: pydantic
+Version: 2.9.2
+
+Name: bitsandbytes
+Version: 0.44.1
+
+Name: transformers
+Version: 4.46.2
+
+Name: json
+Version: 2.8.1
