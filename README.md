@@ -69,5 +69,9 @@ Since the model requires approximately 9GB RAM, therefore it is better to use go
 The model will take a few minutes to load :)
 
 ```bash
-    
+    https://colab.research.google.com/drive/1BSeaZgDi3GkYNVD0t4_vLPF8fgN0vZEj?usp=sharing
+```
+## Demo Link
+```bash
+    https://drive.google.com/file/d/1JNILUmzOxwUTjozszy9jVrQTADhTFx7N/view?usp=drive_link
 ```
