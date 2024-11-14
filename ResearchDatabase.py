@@ -7,7 +7,7 @@ class Output(BaseModel):
   score : confloat(ge=0.0, le=1.0)
 
 class ResearchQASystem:
-    def __init__(self, generator, uri="neo4j+s://1148f8c6.databases.neo4j.io", user="neo4j", password="_KlmMeyAATXPPTOgSu2jcjQPxaso12x0_5MiK3S4I4U"):
+    def __init__(self, generator, uri="<your neo4j uri>", user="<your neo4j username>", password="<your neo4j password>"):
         """Initialize the Research QA System with necessary models and database connection"""
         # Neo4j connection
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
